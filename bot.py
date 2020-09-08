@@ -25,6 +25,9 @@ async def background():
   if key < 6:
     mention = ht[key]
     await channel.send("Remember to defrost meat if needed " + mention)
+  elif key == 6 && datetime.datetime.today().time().hour > 5:
+    mention = ht[(datetime.datetime.today().date().isocalendar()[1])%6]
+    await channel.send(mention + ", don't forget to take out the trash")
   os._exit(0)
 
 client.loop.create_task(background())
