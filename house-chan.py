@@ -54,12 +54,13 @@ inspiration= [
 
 client = discord.Client()
 under = re.compile('(.*\s+know\s+)?[Ww]here\s.*')
+dad = re.compile("^\s*[Ii]'?m\s+([\w\-\s]+\.?)")
 hewp = re.compile('\?help')
 good = re.compile('[Gg]ood bot')
 bad = re.compile('[Bb]ad bot')
 pog = re.compile('^\s*[Pp]oggers\s*$')
-insult = re.compile('![Rr]oast me')
-inspire = re.compile('![Ii]nspire me')
+insult = re.compile('![Rr]oast')
+inspire = re.compile('![Ii]nspire')
 
 @client.event
 async def on_message(message):
@@ -72,11 +73,18 @@ async def on_message(message):
     pog_regex = pog.search(message.content)
     insult_regex = insult.search(message.content)
     inspire_regex = inspire.search(message.content)
+    dad_regex = dad.search(message.content)
+    if dad_regex:
+        r = dad_regex.group(1)
+        response = "Hi " + r + ", I'm Bot-san"
+        if 'Bot-san' in r or 'bot-san' in r :
+          response = "No, I'm " + r
+        await message.channel.send(response)
     if help_regex:
         response = "Hewwo,I am House-Chan uwu. I hewp awound the howse.\
         \nYou can order me around like the bot I am:\
-        \n\t!inspire me - qives an inspiwationyaw quote UwU\
-        \n\t!roast me - i will woast u >.<\n\t?help - dispways this hewp message"
+        \n\t!inspire - qives an inspiwationyaw quote UwU\
+        \n\t!roast - i will woast u >.<\n\t?help - dispways this hewp message"
         await message.channel.send(response)
     if pog_regex:
         response = "Don't you mean, Gongers?"
@@ -96,4 +104,8 @@ async def on_message(message):
     if inspire_regex:
         response = random.choice(inspiration)
         await message.channel.send(response)
+@client.event
+async def on_error(event, *args, **kwargs):
+    with open('err.log', 'a') as f:
+        f.write(f'Unhandled message: {args[0]}\n')
 client.run(TOKEN)
