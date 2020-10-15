@@ -53,14 +53,16 @@ inspiration= [
 ]
 
 client = discord.Client()
-under = re.compile('(.*\s+know\s+)?[Ww]here\s.*')
-dad = re.compile("^\s*[Ii]'?m\s+([\w\-\s]+\.?)")
+under = re.compile("(^|know)\s*[Ww]here\s+")
+dad = re.compile("^\s*[Ii](('?m)| am)\s+([\w\-\s]+\.?)")
 hewp = re.compile('\?help')
 good = re.compile('[Gg]ood bot')
 bad = re.compile('[Bb]ad bot')
 pog = re.compile('^\s*[Pp]oggers\s*$')
 insult = re.compile('![Rr]oast')
 inspire = re.compile('![Ii]nspire')
+ask = re.compile("[Cc]an (you|we|[Ii]|somebody|someone|anyone)\s+([\w\d\s'\-]+[\.\?]?)")
+reverse = re.compile("^\s*(fuc?k (yo)?u)|(kys)|(defenestrate (yourself|urself))\s*$")
 
 @client.event
 async def on_message(message):
@@ -74,11 +76,25 @@ async def on_message(message):
     insult_regex = insult.search(message.content)
     inspire_regex = inspire.search(message.content)
     dad_regex = dad.search(message.content)
+    ask_regex= ask.search(message.content)
+    reverse_regex = reverse.search(message.content)
+    if  reverse_regex:
+        response = "no u"
+        await message.channel.send(response)
     if dad_regex:
-        r = dad_regex.group(1)
+        r = dad_regex.group(3)
         response = "Hi " + r + ", I'm Bot-san"
         if 'Bot-san' in r or 'bot-san' in r :
           response = "No, I'm " + r
+        await message.channel.send(response)
+    if ask_regex:
+        r = ask_regex.group(2)
+        if "please" in r or "pwease" in r:
+          r = r.replace("please ", "")
+          r = r.replace("pwease ", "")
+        left = '\U0001F448'
+        right = '\U0001F449'
+        response = "Pwease " + r + right + left
         await message.channel.send(response)
     if help_regex:
         response = "Hewwo,I am House-Chan uwu. I hewp awound the howse.\
@@ -90,10 +106,10 @@ async def on_message(message):
         response = "Don't you mean, Gongers?"
         await message.channel.send(response)
     if  under_regex:
-        response = "it's under there"
+        response = "under there"
         await message.channel.send(response)
     if good_regex:
-        emoji = '\U0001F633'
+        emoji = '\U0001F60A'
         await message.add_reaction(emoji)
     if bad_regex:
         emoji = '\U0001F622'
