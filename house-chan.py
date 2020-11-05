@@ -62,7 +62,8 @@ pog = re.compile('^\s*[Pp]oggers\s*$')
 insult = re.compile('![Rr]oast')
 inspire = re.compile('![Ii]nspire')
 ask = re.compile("[Cc]an (you|we|[Ii]|somebody|someone|anyone)\s+([\w\d\s'\-]+[\.\?]?)")
-reverse = re.compile("^\s*(fuc?k (yo)?u)|(kys)|(defenestrate (yourself|urself))\s*$")
+reverse = re.compile("^\s*([fF]uc?k (yo)?u)|(kys)|(defenestrate (yourself|urself))\s*")
+er= re.compile('(\w*er)')
 
 @client.event
 async def on_message(message):
@@ -78,14 +79,22 @@ async def on_message(message):
     dad_regex = dad.search(message.content)
     ask_regex= ask.search(message.content)
     reverse_regex = reverse.search(message.content)
+    er_regex = er.search(message.content)
     if  reverse_regex:
         response = "no u"
+        await message.channel.send(response)
+    if pog_regex:
+        response = "Don't you mean, Gongers?"
         await message.channel.send(response)
     if dad_regex:
         r = dad_regex.group(3)
         response = "Hi " + r + ", I'm Bot-san"
         if 'Bot-san' in r or 'bot-san' in r :
           response = "No, I'm " + r
+        await message.channel.send(response)
+    if er_regex:
+        r = er_regex.group(1)
+        response = r + "? I barely even know her"
         await message.channel.send(response)
     if ask_regex:
         r = ask_regex.group(2)
@@ -101,9 +110,6 @@ async def on_message(message):
         \nYou can order me around like the bot I am:\
         \n\t!inspire - qives an inspiwationyaw quote UwU\
         \n\t!roast - i will woast u >.<\n\t?help - dispways this hewp message"
-        await message.channel.send(response)
-    if pog_regex:
-        response = "Don't you mean, Gongers?"
         await message.channel.send(response)
     if  under_regex:
         response = "under there"
