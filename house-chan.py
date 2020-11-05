@@ -63,7 +63,7 @@ insult = re.compile('![Rr]oast')
 inspire = re.compile('![Ii]nspire')
 ask = re.compile("[Cc]an (you|we|[Ii]|somebody|someone|anyone)\s+([\w\d\s'\-]+[\.\?]?)")
 reverse = re.compile("^\s*([fF]uc?k (yo)?u)|(kys)|(defenestrate (yourself|urself))\s*")
-er= re.compile('(\w*er)')
+er= re.compile('(\w*er)([\s\?!]|^)')
 
 @client.event
 async def on_message(message):
