@@ -5,6 +5,8 @@ import re
 import discord
 import random
 
+from datetime import datetime
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -120,6 +122,8 @@ async def on_message(message):
     if inspire_regex:
         response = random.choice(inspiration)
         await message.channel.send(response)
+    if "9:11" in message.content and datetime.now().strftime("%h:%M") == "9:11":
+        await message.channel.send("ha ha nice")
 @client.event
 async def on_error(event, *args, **kwargs):
     with open('err.log', 'a') as f:
