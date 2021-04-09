@@ -71,6 +71,10 @@ er= re.compile('(\w*er)([\s\?!]|^)')
 async def on_message(message):
     if message.author == client.user:
         return
+    if message.channel.id == 690014728420196463:
+        return
+    if message.channel.id == 690016571493842977:
+        return
     help_regex = hewp.search(message.content)
     under_regex= under.search(message.content)
     good_regex = good.search(message.content)
@@ -89,15 +93,19 @@ async def on_message(message):
         response = "Don't you mean, Gongers?"
         await message.channel.send(response)
     if dad_regex:
-        r = dad_regex.group(3)
-        response = "Hi " + r + ", I'm Bot-san"
-        if 'Bot-san' in r or 'bot-san' in r :
-          response = "No, I'm " + r
-        await message.channel.send(response)
+        a = randint(0,100)
+        if a < 10:
+          r = dad_regex.group(3)
+          response = "Hi " + r + ", I'm Bot-san"
+          if 'Bot-san' in r or 'bot-san' in r :
+            response = "No, I'm " + r
+          await message.channel.send(response)
     if er_regex:
-        r = er_regex.group(1)
-        response = r + "? I barely even know her"
-        await message.channel.send(response)
+        a = randint(0,100)
+        if a < 10:
+          r = er_regex.group(1)
+          response = r + "? I barely even know her"
+          await message.channel.send(response)
     if ask_regex:
         r = ask_regex.group(2)
         if "please" in r or "pwease" in r:

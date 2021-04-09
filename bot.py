@@ -31,8 +31,8 @@ async def background():
   elif "trash" in sys.argv[1]:
     mention = ht[(datetime.datetime.today().date().isocalendar()[1])%6]
     await channel.send(mention + ", don't forget to take out the trash")
-  elif "dehumidifier" in sys.argv[1]:
-    await bot_channel.send(TUESDAY + ", " + SATURDAY + ": Check The Dehumidifier")
+#  elif "dehumidifier" in sys.argv[1]:
+#    await bot_channel.send(TUESDAY + ", " + SATURDAY + ": Check The Dehumidifier")
   elif "smooth" in sys.argv[1]:
     await bot_channel.send("<:smooth:766378578270224394>")
   os._exit(0)
